@@ -110,7 +110,6 @@
       <script>
 
 
-
         function sendEmail(){
 
           const email = document.getElementById("email").value;
@@ -134,6 +133,8 @@
                 text: "Message sent successfully!",
                 icon: "success"
               });
+              } else{
+                return message => alert(message);
               }
             }
           );
