@@ -73,16 +73,20 @@
             <main class="mb-auto col-12">
               <h1>hit my line 📞</h1>
               
-<form class="row">
+<form onsubmit="sendEmail(); reset(); return false;" class="row">
   <div class="col-12">
   <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Your Full Name</label>
+    <input type="text" id="fullname" class="form-control form-control-lg bg-gray-800 border-dark" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Your Email</label>
-    <input type="email" class="form-control form-control-lg bg-gray-800 border-dark" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <input type="email" id="email" class="form-control form-control-lg bg-gray-800 border-dark" id="exampleInputEmail1" aria-describedby="emailHelp">
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Your Message</label>
-    <textarea class="form-control form-control-lg bg-gray-800 border-dark" name="" id="" cols="5" rows="5"></textarea>
+    <textarea id="message" class="form-control form-control-lg bg-gray-800 border-dark" name="" id="" cols="5" rows="5"></textarea>
   </div>
   <!-- <div class="mb-3 form-check py-3">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -99,5 +103,41 @@
           
         </div>
 
-      </div></body>
+      </div>
+      <script src="https://smtpjs.com/v3/smtp.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      <script>
+
+
+
+        function sendEmail(){
+
+          const email = document.getElementById("email").value;
+          const fullname = document.getElementById("fullname").value;
+          const message = document.getElementById("message").value;
+
+          const bodyMessage = `Full Name: ${fullname} <br> Email: ${email} <br> Message: ${message}`;
+              Email.send({
+              Host : "smtp.elasticemail.com",
+              Username : "danogbo0@gmail.com",
+              Password : "0D12BB70D3D3E6607ED7B4DD3302148750F4",
+              To : "danogbo0@gmail.com",
+              From : email,
+              Subject : "Contact Dan Enquiry",
+              Body : bodyMessage
+          }).then(
+            message => {
+              if(message == "OK"){
+                Swal.fire({
+                title: "Success!",
+                text: "Message sent successfully!",
+                icon: "success"
+              });
+              }
+            }
+          );
+        }
+      </script>
+    </body>
     </html>
